@@ -73,11 +73,11 @@ def addNotaLista():
         if not verif_lista:
             flash('Essa tarefa não existe, você deve criá-la antes de adicionar notas.', category='error')
 
-        elif not NotaLista(id_lista=id_lista):
+        elif NotaLista(id_lista=id_lista):
             flash('Esse aluno já possui nota nessa tarefa.', category='error')
         
         else:
-            nova_nota = NotaLista(id_lista=id_lista)
+            nova_nota = NotaLista(id_lista=id_lista, nota=nota)
             db.session.add(nova_nota)
             db.session.commit()
             flash('Nota adicionada!', category='success')
@@ -93,8 +93,7 @@ def addNotaTrab():
         trabalho = request.form.get('trabalho')
         nota = request.form.get('nota')
 
-        verif_aluno = Aluno.query.filter_by(nome_aluno=aluno).first()
-        verif_tarefa = Trabalho.query.filter_by(trabalho=trabalho).first()
+        verif_aluno = Aluno.query.filter_by(aluno=aluno).first()
         
         id_aluno = Aluno(aluno=aluno).id
         id_trabalho = Trabalho(id_aluno=id_aluno, trabalho=trabalho).id
@@ -103,12 +102,13 @@ def addNotaTrab():
             novo_aluno = Aluno(nome_aluno=aluno)
             db.session.add(novo_aluno)
             db.session.commit()
-        
-        if not verif_tarefa:
-            flash('Essa tarefa não existe, você deve criá-la antes de adicionar notas.', category='error')
 
-        elif not NotaLista(id_trabalho=id_trabalho):
-            flash('Esse aluno já possui nota nessa tarefa.', category='error')
+        if trabalho == None:
+            flash('Escolha um trabalho.', category='error')
+            
+        elif NotaTrabalho(id_trabalho=id_trabalho):
+            flash('Esse aluno já possui nota nesse trabalho.', category='error')
+        
         else:
             nova_nota = NotaTrabalho(id_trabalho=id_trabalho, nota=nota)
             db.session.add(nova_nota)
@@ -116,6 +116,7 @@ def addNotaTrab():
             flash('Nota adicionada!', category='success')
 
     return render_template("add_nota_trab.html", user=current_user)
+
 
 @pags.route('/areaLogada/calcSituacao', methods=['GET', 'POST'])
 @login_required

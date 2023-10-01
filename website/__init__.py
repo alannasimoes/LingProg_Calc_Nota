@@ -40,10 +40,10 @@ def create_database(app):
     
     if not path.exists('website/' + DB_NAME):
         db.create_all(app=app)
-        novo_trabalho = Trabalho(trabalho='trab1')
+        novo_trabalho = Trabalho(trabalho='Trabalho 1')
         db.session.add(novo_trabalho)
         db.session.commit()
-        novo_trabalho = Trabalho(trabalho='trab2')
+        novo_trabalho = Trabalho(trabalho='Trabalho 2')
         db.session.add(novo_trabalho)
         db.session.commit()
         
