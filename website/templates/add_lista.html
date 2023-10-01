@@ -1,0 +1,19 @@
+{% extends "base.html" %} {% block title %}Add tarefas{% endblock %} {% block content
+    %}
+    <form method="POST">
+      <h2 align="center">Adicionar Listas</h2>
+      <div class="form-group">
+        <label for="lista">Nome da listaa</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lista"
+          name="lista"
+          placeholder="Digite o nome da lista"
+        />
+      </div>
+      <br />
+      <button type="submit" class="btn btn-primary">Adicionar</button>
+    </form>
+    {% endblock %}
+    
