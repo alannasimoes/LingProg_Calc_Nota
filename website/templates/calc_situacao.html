@@ -1,1 +1,18 @@
-<h1>Calc Situacao</h1>
+{% extends "base.html" %} {% block title %}Calc Situação{% endblock %} {% block content
+    %}
+    <form method="POST">
+      <h2 align="center">Calcular Situação</h2>      
+      <div class="form-group">
+        <label for="tarefa">Nome do aluno</label>
+        <input
+          type="text"
+          class="form-control"
+          id="aluno"
+          name="aluno"
+          placeholder="Digite o nome do aluno"
+        />
+      </div>
+      <br />
+      <button type="submit" class="btn btn-primary">Calcular</button>
+    </form>
+    {% endblock %}
