@@ -14,5 +14,13 @@
       </div>
       <br />
       <button type="submit" class="btn btn-primary">Calcular</button>
+      <div id="situação">
+        {% if exibir_situacao %}
+          <h4>Situação do aluno</h4>
+          <p>Nome: {{ aluno }}</p>
+          <p>Média: {{ media }}</p>
+          <p>Situação: {{ situacao }}</p>
+        {% endif %}
+      </div>
     </form>
     {% endblock %}
