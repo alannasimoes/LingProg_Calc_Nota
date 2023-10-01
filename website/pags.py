@@ -60,21 +60,15 @@ def addNotaLista():
         nota = request.form.get('nota')
 
         verif_aluno = Aluno.query.filter_by(aluno=aluno).first()
-        print(verif_aluno)
         verif_lista = Lista.query.filter_by(lista=lista).first()
-        print(verif_lista)
 
         id_aluno = Aluno.query.filter_by(aluno=aluno).first()
         if id_aluno != None:
             id_aluno = id_aluno.id
-            print(aluno)
-            print(id_aluno)
             
         id_lista = Lista.query.filter_by(lista=lista).first()
         if id_lista != None:
             id_lista = id_lista.id
-            print(lista)
-            print(id_lista)
         
         if verif_aluno == None:
             novo_aluno = Aluno(aluno=aluno)
@@ -92,7 +86,6 @@ def addNotaLista():
             nova_nota = NotaLista(id_aluno=id_aluno, id_lista=id_lista, nota=nota)
             db.session.add(nova_nota)
             db.session.commit()
-            print(NotaLista.query.filter_by(id_aluno=id_aluno, id_lista=id_lista).first())
             flash('Nota adicionada!', category='success')
 
     return render_template("add_nota_lista.html", user=current_user)
@@ -105,7 +98,6 @@ def addNotaTrab():
         aluno = request.form.get('aluno')
         trabalho = request.form.get('trabalho')
         nota = request.form.get('nota')
-        print(trabalho)
         
         verif_aluno = Aluno.query.filter_by(aluno=aluno).first()
         
