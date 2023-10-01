@@ -119,9 +119,6 @@ def addNotaTrab():
             db.session.add(novo_aluno)
             db.session.commit()
             id_aluno = Aluno.query.filter_by(aluno=aluno).first().id
-
-        if trabalho == None:
-            flash('Escolha um trabalho.', category='error')
             
         elif NotaTrabalho.query.filter_by(id_aluno=id_aluno, id_trabalho=id_trabalho).first() != None:
             flash('Esse aluno já possui nota nesse trabalho.', category='error')
@@ -138,4 +135,46 @@ def addNotaTrab():
 @pags.route('/areaLogada/calcSituacao', methods=['GET', 'POST'])
 @login_required
 def calcSituacao():
+    if request.method == 'POST':
+        aluno = request.form.get('aluno')
+        
+        verif_aluno = Aluno.query.filter_by(aluno=aluno).first()
+        
+        if verif_aluno != None:
+            id_aluno = verif_aluno.id
+        else:
+            flash('Esse aluno não existe.', category='error')
+            return render_template("calc_situacao.html", user=current_user)
+        
+        if Trabalho.query.filter_by(id_aluno=id_aluno).first() == None:
+            flash('Não é possível calcular situção, adicione a nota de pelo menos um trabalho.', category='error')
+            return render_template("calc_situacao.html", user=current_user)
+        
+        parte_trabalhos = 0
+        for trabalho in Trabalho.query.filter_by(id_aluno=id_aluno):
+            id_trabalho = Trabalho.query.filter_by(id_aluno=id_aluno, trabalho=trabalho.trabalho).id
+            print(trabalho.trabalho)
+            parte_trabalhos += NotaTrabalho.query.filter_by(id_aluno=id_aluno, id_trabalho=id_trabalho).nota
+            print(parte_trabalhos)
+        parte_trabalhos = parte_trabalhos*0.8
+        print(parte_trabalhos)    
+        
+        if Lista.query.filter_by(id_aluno=id_aluno).first() == None:
+            flash('Não é possível calcular situção, adicione a nota de pelo menos uma lista.', category='error')
+            return render_template("calc_situacao.html", user=current_user)
+        
+        parte_listas = 0
+        quant_listas = 0
+        for lista in Lista.query.filter_by(id_aluno=id_aluno):
+            id_lista = Lista.query.filter_by(id_aluno=id_aluno, lista=lista.lista).id
+            print(lista.lista)
+            parte_listas += NotaLista.query.filter_by(id_aluno=id_aluno, id_lista=id_lista).nota
+            quant_listas += 1
+            print(parte_listas)
+        parte_listas = (parte_listas/quant_listas)*0.2
+        print(parte_listas)
+        
+        media = parte_trabalhos + parte_listas
+        print(media)       
+            
     return render_template("calc_situacao.html", user=current_user)
