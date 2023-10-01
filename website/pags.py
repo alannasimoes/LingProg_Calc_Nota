@@ -60,26 +60,39 @@ def addNotaLista():
         nota = request.form.get('nota')
 
         verif_aluno = Aluno.query.filter_by(aluno=aluno).first()
+        print(verif_aluno)
         verif_lista = Lista.query.filter_by(lista=lista).first()
+        print(verif_lista)
 
-        id_aluno = Aluno(aluno=aluno).id
-        id_lista = Lista(id_aluno=id_aluno, lista=lista).id
+        id_aluno = Aluno.query.filter_by(aluno=aluno).first()
+        if id_aluno != None:
+            id_aluno = id_aluno.id
+            print(aluno)
+            print(id_aluno)
+            
+        id_lista = Lista.query.filter_by(lista=lista).first()
+        if id_lista != None:
+            id_lista = id_lista.id
+            print(lista)
+            print(id_lista)
         
-        if not verif_aluno:
+        if verif_aluno == None:
             novo_aluno = Aluno(aluno=aluno)
             db.session.add(novo_aluno)
             db.session.commit()
+            id_aluno = Aluno.query.filter_by(aluno=aluno).first().id
         
-        if not verif_lista:
+        if verif_lista == None:
             flash('Essa tarefa não existe, você deve criá-la antes de adicionar notas.', category='error')
 
-        elif NotaLista(id_lista=id_lista):
+        elif NotaLista.query.filter_by(id_aluno=id_aluno, id_lista=id_lista).first() != None:
             flash('Esse aluno já possui nota nessa tarefa.', category='error')
         
         else:
-            nova_nota = NotaLista(id_lista=id_lista, nota=nota)
+            nova_nota = NotaLista(id_aluno=id_aluno, id_lista=id_lista, nota=nota)
             db.session.add(nova_nota)
             db.session.commit()
+            print(NotaLista.query.filter_by(id_aluno=id_aluno, id_lista=id_lista).first())
             flash('Nota adicionada!', category='success')
 
     return render_template("add_nota_lista.html", user=current_user)
@@ -92,25 +105,37 @@ def addNotaTrab():
         aluno = request.form.get('aluno')
         trabalho = request.form.get('trabalho')
         nota = request.form.get('nota')
-
+        print(trabalho)
+        
         verif_aluno = Aluno.query.filter_by(aluno=aluno).first()
         
-        id_aluno = Aluno(aluno=aluno).id
-        id_trabalho = Trabalho(id_aluno=id_aluno, trabalho=trabalho).id
+        id_aluno = Aluno.query.filter_by(aluno=aluno).first()
+        if id_aluno != None:
+            id_aluno = id_aluno.id
+            
+        id_trabalho = Trabalho.query.filter_by(trabalho=trabalho).first()
+        if id_trabalho == None:
+            novo_trabalho = Trabalho(trabalho=trabalho)
+            db.session.add(novo_trabalho)
+            db.session.commit()
+            id_trabalho = Trabalho.query.filter_by(trabalho=trabalho).first().id
+        else:
+            id_trabalho = id_trabalho.id
         
-        if not verif_aluno:
-            novo_aluno = Aluno(nome_aluno=aluno)
+        if verif_aluno == None:
+            novo_aluno = Aluno(aluno=aluno)
             db.session.add(novo_aluno)
             db.session.commit()
+            id_aluno = Aluno.query.filter_by(aluno=aluno).first().id
 
         if trabalho == None:
             flash('Escolha um trabalho.', category='error')
             
-        elif NotaTrabalho(id_trabalho=id_trabalho):
+        elif NotaTrabalho.query.filter_by(id_aluno=id_aluno, id_trabalho=id_trabalho).first() != None:
             flash('Esse aluno já possui nota nesse trabalho.', category='error')
         
         else:
-            nova_nota = NotaTrabalho(id_trabalho=id_trabalho, nota=nota)
+            nova_nota = NotaTrabalho(id_aluno=id_aluno, id_trabalho=id_trabalho, nota=nota)
             db.session.add(nova_nota)
             db.session.commit()
             flash('Nota adicionada!', category='success')

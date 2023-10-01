@@ -11,12 +11,14 @@ class Aluno(db.Model):
 
 class NotaLista(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    id_aluno = db.Column(db.Integer, db.ForeignKey('aluno.id'))
     id_lista = db.Column(db.Integer, db.ForeignKey('lista.id'))
     nota = db.Column(db.Float)
     
     
 class NotaTrabalho(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    id_aluno = db.Column(db.Integer, db.ForeignKey('aluno.id'))
     id_trabalho = db.Column(db.Integer, db.ForeignKey('trabalho.id'))
     nota = db.Column(db.Float)
 
