@@ -5,34 +5,32 @@ from flask_login import UserMixin
 class Aluno(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     aluno = db.Column(db.String(150))
-    trabalhos = db.relationship('Trabalho')
-    listas = db.relationship('Lista')
+    nota_trabalho = db.relationship('NotaTrabalho')
+    nota_lista = db.relationship('NotaLista')
   
 
 class NotaLista(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     id_aluno = db.Column(db.Integer, db.ForeignKey('aluno.id'))
     id_lista = db.Column(db.Integer, db.ForeignKey('lista.id'))
-    nota = db.Column(db.Float)
+    nota_lista = db.Column(db.Float)
     
     
 class NotaTrabalho(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     id_aluno = db.Column(db.Integer, db.ForeignKey('aluno.id'))
     id_trabalho = db.Column(db.Integer, db.ForeignKey('trabalho.id'))
-    nota = db.Column(db.Float)
+    nota_trabalho = db.Column(db.Float)
 
 
 class Trabalho(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    id_aluno = db.Column(db.Integer, db.ForeignKey('aluno.id'))
     trabalho = db.Column(db.String(150))
     nota = db.relationship('NotaTrabalho')
 
 
 class Lista(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    id_aluno = db.Column(db.Integer, db.ForeignKey('aluno.id'))
     lista = db.Column(db.String(150))
     nota = db.relationship('NotaLista') 
 

@@ -1,0 +1,19 @@
+{% extends "base.html" %} {% block title %}Add alunos{% endblock %} {% block content
+    %}
+    <form method="POST">
+      <h2 align="center">Adicionar Alunos</h2>
+      <div class="form-group">
+        <label for="aluno">Nome do aluno</label>
+        <input
+          type="text"
+          class="form-control"
+          id="aluno"
+          name="aluno"
+          placeholder="Digite o nome do aluno"
+        />
+      </div>
+      <br />
+      <button type="submit" class="btn btn-primary">Adicionar</button>
+    </form>
+    {% endblock %}
+    
