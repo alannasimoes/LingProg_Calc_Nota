@@ -36,6 +36,8 @@ def criar_app():
 
 
 def create_database(app):
+    '''Cria a base de dados caso ainda não exista'''
+    
     from .models import Trabalho
     
     if not path.exists('website/' + DB_NAME):

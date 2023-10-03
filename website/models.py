@@ -1,3 +1,6 @@
+'''Código com as classes utilizadas para a criação e 
+manipulação do bado de dados.'''
+
 from . import db
 from flask_login import UserMixin
 
