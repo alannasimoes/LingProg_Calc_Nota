@@ -105,3 +105,12 @@ nav a{
     margin-left: 60px;
     margin-right: 60px;
 }
+
+/* Adicionar nota da lista */
+
+#adicionar-nota-lista{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 60px;
+    margin-right: 60px;
+}
