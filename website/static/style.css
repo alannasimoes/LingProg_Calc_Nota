@@ -37,6 +37,7 @@ nav a{
     margin-right: 60px;
 }
 
+
 /* Login */
 
 #formulario-login{
@@ -44,4 +45,43 @@ nav a{
     margin-bottom: 30px;
     margin-left: 60px;
     margin-right: 60px;
+}
+
+
+/* Área Logada */
+
+#area-logada{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 60px;
+    margin-right: 60px;
+    text-align: center;
+}
+
+#area-logada h1{
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+}
+
+#area-logada h2{
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+}
+
+#area-logada p{
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+#acoes form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 20px;
+}
+
+#botao{
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    width: 100%;
 }

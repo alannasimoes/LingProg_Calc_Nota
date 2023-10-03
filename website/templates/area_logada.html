@@ -1,16 +1,18 @@
 {% extends "base.html" %} 
 {% block title %}Área Logada{% endblock %} 
 {% block content%}
-<h1 align="center">Olá, {{ nome_usuario }}!</h1>
-<h2 align="center">O que deseja fazer hoje?</h2>
-<p align="center">Escolha entre as opções abaixo</p>
-<div class="btn-group">
-  <form method = "POST">
-    <input type="submit" value="Adicionar lista" name="botao" class="btn btn-primary">
-    <input type="submit" value="Adicionar aluno" name="botao" class="btn btn-primary">
-    <input type="submit" value="Adicionar nota da lista" name="botao" class="btn btn-primary">
-    <input type="submit" value="Adicionar nota do trabalho" name="botao" class="btn btn-primary">
-    <input type="submit" value="Calcular situação" name="botao" class="btn btn-primary">
-  </form>
+<div id="area-logada">
+  <h1 align="center">Olá, {{ nome_usuario }}!</h1>
+  <h2 align="center">O que deseja fazer hoje?</h2>
+  <p align="center">Escolha entre as opções abaixo</p>
+  <div class="btn-group" id="acoes">
+    <form method = "POST">
+      <input type="submit" value="Adicionar lista" name="botao" id="botao" class="btn btn-primary">
+      <input type="submit" value="Adicionar aluno" name="botao" id="botao" class="btn btn-primary">
+      <input type="submit" value="Adicionar nota da lista" name="botao" id="botao" class="btn btn-primary">
+      <input type="submit" value="Adicionar nota do trabalho" name="botao" id="botao" class="btn btn-primary">
+      <input type="submit" value="Calcular situação" name="botao" id="botao" class="btn btn-primary">
+    </form>
+  </div>
 </div>
 {% endblock %}
