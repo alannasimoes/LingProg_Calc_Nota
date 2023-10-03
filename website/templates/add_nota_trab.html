@@ -12,13 +12,10 @@
       </div>
       <div class="form-group">
         <label for="tarefa">Nome do aluno</label>
-        <input
-          type="text"
-          class="form-control"
-          id="aluno"
-          name="aluno"
-          placeholder="Digite o nome do aluno"
-        />
+        <select name="aluno">
+          {% for aluno in alunos %}
+            <option value="{{ aluno }}">{{ aluno }}</option>
+          {% endfor %}
       </div>
 
       <div class="form-group">

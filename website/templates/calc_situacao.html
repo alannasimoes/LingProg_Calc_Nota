@@ -4,20 +4,18 @@
       <h2 align="center">Calcular Situação</h2>      
       <div class="form-group">
         <label for="tarefa">Nome do aluno</label>
-        <input
-          type="text"
-          class="form-control"
-          id="aluno"
-          name="aluno"
-          placeholder="Digite o nome do aluno"
-        />
+        <select name="aluno">
+          {% for aluno in alunos %}
+            <option value="{{ aluno }}">{{ aluno }}</option>
+          {% endfor %}
+        </select>
       </div>
       <br />
       <button type="submit" class="btn btn-primary">Calcular</button>
       <div id="situação">
         {% if exibir_situacao %}
           <h4>Situação do aluno</h4>
-          <p>Nome: {{ aluno }}</p>
+          <p>Nome: {{ nome_aluno }}</p>
           <p>Média: {{ media }}</p>
           <p>Situação: {{ situacao }}</p>
         {% endif %}

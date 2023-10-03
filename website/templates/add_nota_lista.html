@@ -3,24 +3,20 @@
     <form method="POST">
       <h2 align="center">Adicionar Notas</h2>      
       <div class="form-group">
-        <label for="tarefa">Nome da lista</label>
-        <input
-          type="text"
-          class="form-control"
-          id="lista"
-          name="lista"
-          placeholder="Digite o nome da lista"
-        />
+        <label for="tarefa">Selecione a lista</label>
+        <select name="lista">
+          {% for lista in listas %}
+            <option value="{{ lista }}">{{ lista }}</option>
+          {% endfor %}
+        </select>
       </div>
       <div class="form-group">
         <label for="tarefa">Nome do aluno</label>
-        <input
-          type="text"
-          class="form-control"
-          id="aluno"
-          name="aluno"
-          placeholder="Digite o nome do aluno"
-        />
+        <select name="aluno">
+          {% for aluno in alunos %}
+            <option value="{{ aluno }}">{{ aluno }}</option>
+          {% endfor %}
+        </select>
       </div>
 
       <div class="form-group">

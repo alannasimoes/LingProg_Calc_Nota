@@ -83,24 +83,10 @@ def addNotaLista():
         lista = request.form.get('lista')
         nota = request.form.get('nota')
 
-        verif_aluno = Aluno.query.filter(Aluno.aluno==aluno).first()
-        verif_lista = Lista.query.filter(Lista.lista==lista).first()
-        
-        if verif_aluno != None:
-            id_aluno = verif_aluno.id
+        id_aluno = Aluno.query.filter(Aluno.aluno==aluno).first().id      
+        id_lista = Lista.query.filter(Lista.lista==lista).first().id
 
-        else:
-            flash('Esse aluno não existe, você deve adicioná-lo antes de adicionar notas.', category='error')
-            return render_template("add_nota_lista.html", user=current_user)
-            
-        id_lista = Lista.query.filter_by(lista=lista).first()
-        if id_lista != None:
-            id_lista = id_lista.id
-        
-        if verif_lista == None:
-            flash('Essa tarefa não existe, você deve criá-la antes de adicionar notas.', category='error')
-
-        elif NotaLista.query.filter(NotaLista.id_aluno==id_aluno, NotaLista.id_lista==id_lista).first() != None:
+        if NotaLista.query.filter(NotaLista.id_aluno==id_aluno, NotaLista.id_lista==id_lista).first() != None:
             flash('Esse aluno já possui nota nessa tarefa.', category='error')
         
         else:
@@ -109,7 +95,17 @@ def addNotaLista():
             db.session.commit()
             flash('Nota adicionada!', category='success')
 
-    return render_template("add_nota_lista.html", user=current_user)
+    busca= Lista.query.all()
+    listas = []
+    for lista in busca:
+        listas.append(lista.lista)
+        
+    busca= Aluno.query.all()
+    alunos = []
+    for aluno in busca:
+        alunos.append(aluno.aluno)
+        
+    return render_template("add_nota_lista.html", user=current_user, listas=listas, alunos=alunos)
 
 
 @pags.route('/areaLogada/addNotaTrab', methods=['GET', 'POST'])
@@ -120,13 +116,7 @@ def addNotaTrab():
         trabalho = request.form.get('trabalho')
         nota = request.form.get('nota')
         
-        verif_aluno = Aluno.query.filter(Aluno.aluno==aluno).first()
-        
-        if verif_aluno != None:
-            id_aluno = verif_aluno.id
-        else:
-            flash('Esse aluno não existe, você deve adicioná-lo antes de adicionar notas.', category='error')
-            return render_template("add_nota_trab.html", user=current_user)
+        id_aluno = Aluno.query.filter(Aluno.aluno==aluno).first().id
             
         id_trabalho = Trabalho.query.filter(Trabalho.trabalho==trabalho).first()
         if id_trabalho == None:
@@ -146,14 +136,17 @@ def addNotaTrab():
             db.session.commit()
             flash('Nota adicionada!', category='success')
 
-    return render_template("add_nota_trab.html", user=current_user)
+    busca= Aluno.query.all()
+    alunos = []
+    for aluno in busca:
+        alunos.append(aluno.aluno)
+
+    return render_template("add_nota_trab.html", user=current_user, alunos=alunos)
 
 
 @pags.route('/areaLogada/calcSituacao', methods=['GET', 'POST'])
 @login_required
 def calcSituacao():
-    exibir_situacao = False
-    
     if request.method == 'POST':
         aluno = request.form.get('aluno')
         
@@ -199,13 +192,27 @@ def calcSituacao():
         
         exibir_situacao = True
         
-        return render_template("calc_situacao.html", 
-                               user=current_user, 
-                               media=media, 
-                               aluno=aluno, 
-                               situacao=situacao,
-                               exibir_situacao=exibir_situacao)
-            
+        # return render_template("calc_situacao.html", 
+        #                        user=current_user, 
+        #                        media=media, 
+        #                        aluno=aluno, 
+        #                        situacao=situacao,
+        #                        exibir_situacao=exibir_situacao)
+    else:
+        media = None
+        aluno = None
+        situacao = None
+        exibir_situacao = False
+        
+    busca= Aluno.query.all()
+    alunos = []
+    for busca_aluno in busca:
+        alunos.append(busca_aluno.aluno)
+             
     return render_template("calc_situacao.html", 
-                           user=current_user, 
-                           exibir_situacao=exibir_situacao)
+                            user=current_user, 
+                            media=media, 
+                            nome_aluno=aluno, 
+                            situacao=situacao,
+                            exibir_situacao=exibir_situacao,
+                            alunos=alunos)
