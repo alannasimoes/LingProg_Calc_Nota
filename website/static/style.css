@@ -1,0 +1,31 @@
+/* Geral */
+.navbar-custom {
+    background-color: #cf6910;
+}
+
+nav a{
+    color: #fff;
+}
+
+
+/* Home */
+
+#bem-vindo{
+    margin: 30px;
+}
+
+#bem-vindo p, ul{
+    font-size:1.2rem;
+}
+
+#bem-vindo h1{
+    font-size: 2.5rem;
+}
+
+#resumo{
+    margin: 10px;
+}
+
+
+/* Cadastro */
+

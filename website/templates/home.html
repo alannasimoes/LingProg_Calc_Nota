@@ -1,12 +1,17 @@
 {% extends "base.html" %} 
 {% block title %}Home{% endblock %} 
 {% block content%}
+<div id="bem-vindo">
     <h1 align="center">Bem-vindo(a)!</h1>
-    <p>Aqui você pode:</p>
-    <ul class="list">
-        <li>Adicionar uma tarefa</li>
-        <li>Adicionar notas</li>
-        <li>Calcular média e situação do aluno</li>
-    </ul>
-    <p>Faça seu login ou cadastre-se para acessar todas as funcionalidades!</p>
+    <div id="resumo">
+        <p>Aqui você pode:</p>
+        <ul class="list">
+            <li>Adicionar tarefas</li>
+            <li>Adicionar alunos</li>
+            <li>Adicionar notas</li>
+            <li>Calcular média e situação do aluno</li>
+        </ul>
+        <p>Faça seu login ou cadastre-se para acessar todas as funcionalidades!</p>
+    </div>
+</div>
 {% endblock %}
