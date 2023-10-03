@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block title %}Calc Situação{% endblock %} {% block content
     %}
-    <form method="POST">
+    <form method="POST" id="calc-situacao">
       <h2 align="center">Calcular Situação</h2>      
       <div class="form-group">
         <label for="tarefa">Selecione o aluno</label>
@@ -12,7 +12,7 @@
       </div>
       <br />
       <button type="submit" class="btn btn-primary">Calcular</button>
-      <div id="situação">
+      <div id="situacao">
         {% if exibir_situacao %}
           <h4>Situação do aluno</h4>
           <p>Nome: {{ nome_aluno }}</p>
