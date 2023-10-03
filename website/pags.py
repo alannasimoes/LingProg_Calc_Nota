@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from .models import Lista, Aluno, Trabalho, NotaLista, NotaTrabalho
 from . import db
@@ -87,20 +87,19 @@ def addNotaLista():
         id_lista = Lista.query.filter(Lista.lista==lista).first().id
 
         if NotaLista.query.filter(NotaLista.id_aluno==id_aluno, NotaLista.id_lista==id_lista).first() != None:
-            flash('Esse aluno já possui nota nessa tarefa.', category='error')
-        
+            flash('Esse aluno já possui nota nessa tarefa.', category='error')  
         else:
             nova_nota = NotaLista(id_aluno=id_aluno, id_lista=id_lista, nota_lista=nota)
             db.session.add(nova_nota)
             db.session.commit()
             flash('Nota adicionada!', category='success')
 
-    busca= Lista.query.all()
+    busca = Lista.query.all()
     listas = []
     for lista in busca:
         listas.append(lista.lista)
         
-    busca= Aluno.query.all()
+    busca = Aluno.query.all()
     alunos = []
     for aluno in busca:
         alunos.append(aluno.aluno)
@@ -117,7 +116,7 @@ def addNotaTrab():
         nota = request.form.get('nota')
         
         id_aluno = Aluno.query.filter(Aluno.aluno==aluno).first().id
-            
+
         id_trabalho = Trabalho.query.filter(Trabalho.trabalho==trabalho).first()
         if id_trabalho == None:
             novo_trabalho = Trabalho(trabalho=trabalho)
@@ -129,7 +128,6 @@ def addNotaTrab():
             
         if NotaTrabalho.query.filter(NotaTrabalho.id_aluno==id_aluno, NotaTrabalho.id_trabalho==id_trabalho).first() != None:
             flash('Esse aluno já possui nota nesse trabalho.', category='error')
-        
         else:
             nova_nota = NotaTrabalho(id_aluno=id_aluno, id_trabalho=id_trabalho, nota_trabalho=nota)
             db.session.add(nova_nota)
@@ -150,13 +148,7 @@ def calcSituacao():
     if request.method == 'POST':
         aluno = request.form.get('aluno')
         
-        verif_aluno = Aluno.query.filter(Aluno.aluno==aluno).first()
-        
-        if verif_aluno != None:
-            id_aluno = verif_aluno.id
-        else:
-            flash('Esse aluno não existe.', category='error')
-            return render_template("calc_situacao.html", user=current_user)
+        id_aluno = Aluno.query.filter(Aluno.aluno==aluno).first().id
         
         if NotaTrabalho.query.filter(NotaTrabalho.id_aluno==id_aluno).first() == None:
             flash('Não é possível calcular situção, adicione a nota de pelo menos um trabalho.', category='error')
@@ -191,13 +183,7 @@ def calcSituacao():
             situacao = 'Reprovado'
         
         exibir_situacao = True
-        
-        # return render_template("calc_situacao.html", 
-        #                        user=current_user, 
-        #                        media=media, 
-        #                        aluno=aluno, 
-        #                        situacao=situacao,
-        #                        exibir_situacao=exibir_situacao)
+
     else:
         media = None
         aluno = None

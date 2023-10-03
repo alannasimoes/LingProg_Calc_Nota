@@ -23,7 +23,7 @@ def login():
             else:
                 flash('Senha incorreta, tente de novo.', category='error')
         else:
-            flash('Esse usuário não existe', category='error')
+            flash('Esse usuário não existe.', category='error')
 
     return render_template("login.html", user=current_user)
 
@@ -45,13 +45,13 @@ def sign_up():
 
         user = Usuario.query.filter_by(usuario=usuario).first()
         if user:
-            flash('Esse usuário já existe', category='error')
+            flash('Esse usuário já existe.', category='error')
         elif len(usuario) < 4:
-            flash('O nome de usuário deve ter mais de 3 caracteres', category='error')
+            flash('O nome de usuário deve ter mais de 3 caracteres.', category='error')
         elif len(nome) < 2:
-            flash('O nome deve ter mais de 1 caracter', category='error')
+            flash('O nome deve ter mais de 1 caracter.', category='error')
         elif senha1 != senha2:
-            flash('As senhas não são iguais', category='error')
+            flash('As senhas não são iguais.', category='error')
         elif len(senha1) < 4:
             flash('A senha deve ter pelo menos 4 caracteres.', category='error')
         else:
