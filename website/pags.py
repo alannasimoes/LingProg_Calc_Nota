@@ -199,7 +199,7 @@ def calcSituacao():
         
         exibir_situacao = True #variável para permitir a exibição do texto com a situção do aluno
 
-    else: #caso a página seja acessada diretamente
+    else: #caso a página seja acessada através do método 'GET'
         media = None
         aluno = None
         situacao = None
