@@ -18,6 +18,7 @@ def home():
 @login_required
 def areaLogada():
     '''Função para a área logada'''
+    nome_usuario = current_user.nome
     
     if request.method == 'POST': 
         if request.form['botao'] == 'Adicionar lista':
@@ -35,7 +36,7 @@ def areaLogada():
         else:
             return redirect(url_for('pags.calcSituacao'))
 
-    return render_template("area_logada.html", user=current_user)
+    return render_template("area_logada.html", user=current_user, nome_usuario=nome_usuario)
 
 
 @pags.route('/areaLogada/addLista', methods=['GET', 'POST'])
@@ -44,7 +45,7 @@ def addLista():
     '''Função para adicionar novas listas'''
     
     if request.method == 'POST':
-        lista = request.form.get('lista')
+        lista = request.form.get('lista').title()
 
         verif_lista = Lista.query.filter(Lista.lista==lista).first() #verifica se a lista já existe
         
@@ -67,7 +68,7 @@ def addAluno():
     '''Função para adicionar novos alunos'''
     
     if request.method == 'POST':
-        aluno = request.form.get('aluno')
+        aluno = request.form.get('aluno').title()
         
         verif_aluno = Aluno.query.filter(Aluno.aluno==aluno).first() #verifica se o aluno já existe
         

@@ -28,7 +28,7 @@ def login():
                 flash('Senha incorreta, tente de novo.', category='error')
         else:
             flash('Esse usuário não existe.', category='error')
-
+            
     return render_template("login.html", user=current_user)
 
 
@@ -47,14 +47,14 @@ def sign_up():
     
     if request.method == 'POST':
         usuario = request.form.get('usuario')
-        nome = request.form.get('nome')
+        nome = request.form.get('nome').title()
         senha1 = request.form.get('senha1')
         senha2 = request.form.get('senha2') #confirmação da senha
 
         user = Usuario.query.filter_by(usuario=usuario).first() #verifica se o usuário já existe
         if user != None:
             flash('Esse usuário já existe.', category='error')
-        elif len(usuario) < 4: #verifica o tamanho do noome de usuário
+        elif len(usuario) < 4: #verifica o tamanho do nome de usuário
             flash('O nome de usuário deve ter mais de 3 caracteres.', category='error')
         elif len(nome) < 2: #verifica o tamanho do nome
             flash('O nome deve ter mais de 1 caracter.', category='error')
@@ -66,7 +66,7 @@ def sign_up():
             new_user = Usuario(usuario=usuario, 
                                nome=nome, 
                                senha=generate_password_hash(
-                               senha1, method='sha256')) #cria o novo usuário
+                               senha1, method='scrypt')) #cria o novo usuário
             db.session.add(new_user)
             db.session.commit() #adiciona as informações à base de dados
             login_user(new_user, remember=True)

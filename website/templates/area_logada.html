@@ -1,6 +1,8 @@
-{% extends "base.html" %} {% block title %}Área Logada{% endblock %} {% block content
-%}
-<h1 align="center">O que deseja fazer?</h1>
+{% extends "base.html" %} 
+{% block title %}Área Logada{% endblock %} 
+{% block content%}
+<h1 align="center">Olá, {{ nome_usuario }}!</h1>
+<h2 align="center">O que deseja fazer hoje?</h2>
 <p align="center">Escolha entre as opções abaixo</p>
 <div class="btn-group">
   <form method = "POST">
